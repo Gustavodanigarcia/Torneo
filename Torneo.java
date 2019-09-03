@@ -20,7 +20,7 @@ public class Torneo {
 	private static List <Partido> fecha2 = new ArrayList<Partido>();
 	private static List <Partido> fecha3 = new ArrayList<Partido>();
 	private static List <Partido> fechaPrueba = new ArrayList<Partido>();
-	private static List<List<Partido>> fechas = new ArrayList<List<Partido>>();;
+	private static List<List<Partido>> Torneo = new ArrayList<List<Partido>>();
 	
 	
 	private static int cantidadEquipos;
@@ -36,50 +36,52 @@ public class Torneo {
 		ingresoEquipos(myObj, listaEquipo); // --> usuario ingresa los equipos
 
 		mostrarEquipos(listaEquipo); // --> muestra los equipos
-
-		System.out.println("*********************************");
-		System.out.println("PRIMERA FECHA:");
-		System.out.println("*********************************");
-
-		fecha = crearFecha(listaEquipo, 1, fecha);
-
-		for (Partido p : fecha) {
-
-			mostrarResultado(p);
-
-		}
-
-		fechas.add(fecha); // Se agrega a la lista fecha que es una lista de partidos:::
-
-		fecha2 = crearFecha(listaEquipo, 2, fecha2);
-
-		System.out.println("*********************************");
-		System.out.println("SEGUNDA FECHA:");
-		System.out.println("*********************************");
-		for (Partido p : fecha2) {
-
-			mostrarResultado(p);
-
-		}
-
-		fechas.add(fecha2);
-
-		fecha3 = crearFecha(listaEquipo, 3, fecha3);
-
-		System.out.println("*********************************");
-		System.out.println("TERCERA FECHA:");
-		System.out.println("*********************************");
-		for (Partido p : fecha3) {
-
-			mostrarResultado(p);
-
-		}
-
-		resultados(listaEquipo);
-
-		fechas.add(fecha3);
-
 	}
+		
+//
+//		System.out.println("*********************************");
+//		System.out.println("PRIMERA FECHA:");
+//		System.out.println("*********************************");
+//
+//		fecha = crearFecha(listaEquipo, 1);
+//
+//		for (Partido p : fecha) {
+//
+//			mostrarResultado(p);
+//
+//		}
+
+//		fechas.add(fecha); // Se agrega a la lista fecha que es una lista de partidos:::
+//
+//		fecha2 = crearFecha(listaEquipo, 2);
+//
+//		System.out.println("*********************************");
+//		System.out.println("SEGUNDA FECHA:");
+//		System.out.println("*********************************");
+//		for (Partido p : fecha2) {
+//
+//			mostrarResultado(p);
+//
+//		}
+//
+//		fechas.add(fecha2);
+//
+//		fecha3 = crearFecha(listaEquipo, 3);
+//
+//		System.out.println("*********************************");
+//		System.out.println("TERCERA FECHA:");
+//		System.out.println("*********************************");
+//		for (Partido p : fecha3) {
+//
+//			mostrarResultado(p);
+//
+//		}
+//
+//		resultados(listaEquipo);
+//
+//		fechas.add(fecha3);
+//
+//	}
 
 
 	public static void ingresoEquipos(Scanner myObj, List <Equipo> listaEquipo) { //Ingresa los equipos y los agrega a la lista de Equipos::: 
@@ -132,74 +134,61 @@ public static void mostrarEquipos( List<Equipo> lista) {  //Muestra los Equipos:
 
 	
 
-public static List<Partido> crearFecha(List<Equipo> lista , int fechaCampeonato, List <Partido> fecha) { //Jugar Partido
+public static List<List<Partido>>  crearTorneo (List<Equipo> lista) { 
 	
 	//String []  equiposTotales 
 	
-	Equipo local = new Equipo();
-	Equipo visitante = new Equipo();
-	int cantidadPartidos = lista.size()/2;
-	Random random = new Random();
-	Partido partidoDeFutbol = new Partido();		
-			//boolean equipoarmado =false:
-				
-				for(Equipo equipoVisitante: lista) { //Se crea 1 partido cada 2 Equipos									
-				
-				//	equipoarmado = false
-					for(Equipo equipoLocal: lista) {
-					//  if (!equipoarmado) {
-					
-						 if(equipoLocal != equipoVisitante &&  cantidadPartidos != 0) {							
-						
-							//llamar a metodo que valide pasando dos equipos y una lista de partidos
-							 //si la lista era nula devuelve false, si me devuelve un false llamo a crearpartido, si en la lista está alguno de esos equipos devuelve falso tb.
-							 
-							 
-								for(Partido p: fecha) {
+//	Equipo local = new Equipo();
+//	Equipo visitante = new Equipo();
+	
+	int cantidadFechas = lista.size() - 1;
+	 fecha = null;		
+	 boolean EquipoJugoEnEstaFecha = false;
+	 boolean SeJugoPartido = false;
+	// List<List<Partido>> fechas = new ArrayList<List<Partido>>(); 		ya Creado en la clase
+
+	
+	for(int i=0; i<cantidadFechas; i++) {
+	
+				for(Equipo equipoVisitante: lista) { 				 //Recorre lista Equipos y comprobar si se puede agregar como Visitante							
+									
+					for(Equipo equipoLocal: lista) {   					 //Recorre lista Equipos y comprobar si se puede agregar como Local
+											
+							if(equipoLocal == equipoVisitante)   // en un mismo partido no se puede tener 2 equipos iguales
+								break;
 							
-									if(equipoVisitante == p.getVisitante() || (equipoVisitante == p.getLocal()) ){//preguntar tambien por el local (segundo foreach, dentro de la lista de partidos ya armados
-										break;
-									}
-								}
+							Partido partidoDeFutbol = new Partido();
+						
+							partidoDeFutbol.setFechaCampeonato(i);   //los partidos se separan por fecha campeonato ID = numero de fecha campeonato
+							
+							if(Torneo.isEmpty() && fecha.isEmpty()) {                                                                //Si el torneo esta vacio, 
+								partidoDeFutbol.setLocal(equipoLocal);
+								partidoDeFutbol.setVisitante(equipoVisitante);
+								fecha.add(partidoDeFutbol);
+								
+								Torneo.add(fecha);
+								break;
 							}
-						
-						 //esto va en el else
-							local = equipoLocal;
-							visitante = equipoVisitante;			
-							
-							partidoDeFutbol = crearPartido(local,visitante,fechaCampeonato);
-							fecha.add(partidoDeFutbol);
-							cantidadPartidos--;
-				//			equipoarmado = true;
-							break;
-							
-							
-					//	}
 							/*
-							//d = Arrays.stream(d).filter(x -> x > 0).toArray();
-							
-							
-							for(Partido partido: fecha) {
- 								
-								if(local.getId() != equipoLocal.getId()  &&  visitante.getId() != equipoVisitante.getId()   || (local.getId() != equipoVisitante.getId() )) {
-									partidoDeFutbol = crearPartido(local,visitante,fechaCampeonato);
-									fecha.add(partidoDeFutbol);
-									cantidadPartidos--; 
-									break;
-								}
+							EquipoJugoEnEsaFecha = obtenerFechaCampeonato(i).stream().filter(partido -> partido.getLocal() == equipoLocal || partido.getLocal() == equipoVisitante )
 							*/
-							
-							
+									
+							EquipoJugoEnEstaFecha = obtenerFechaCampeonato(i).stream().anyMatch(p -> p.getLocal().equals(equipoLocal)  ||  p.getVisitante().equals(equipoLocal));
 						
-						}
-					}
+							if(EquipoJugoEnEstaFecha)
+							{	break;									
+							}
+							
+							Partido partidoTemporal = new Partido();
+							
+							//SeJugoPartido = Torneo.stream().filter(id)
+		
+																							}
+					
+																							}
+	}
+				return Torneo;
 				
-				//despues habria que llamar a un metodo al cual le vas a pasar fecha para que te haga lo mismo que hace crearpartido 
-				//lo que sería el crear partido, es un foreach de fecha, en donde toma el primer registro y agarra el local le da una cant de goles, luego el visitante otra cantidad y pasa al siguiente registro de la lista hasta terminar con todos (los partidos)
-//otro metodo pasandole fecha que vuelve a recorrer y suma los puntos de cada partido y se lo asigna al equipo que corresponda.
-			                         
-			return fecha;
-			
 }
 	
 
@@ -387,6 +376,23 @@ public Partido buscarPartidoPorID(int idPartido) {
 		return null;
 }
 
+
+
+
+
+
+public static List<Partido> obtenerFechaCampeonato(int idFecha) {
+			int i= 0;
+	for( List<Partido> fecha: Torneo) {
+	
+		if(fecha.get(i).getFechaCampeonato() == idFecha) {
+		
+		}
+		i++;
+			return fecha;
+	}
+	return null;
+}
 
 
 
