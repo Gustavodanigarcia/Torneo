@@ -105,78 +105,59 @@ public  void crearFecha (int numFecha) {
 	 Partido partidoNuevo  = new Partido();
 	 
 	 boolean equiposIguales = true;
-	 boolean  PartidoRepetidoEnTorneo  = true;
+	 boolean  PartidoRepetidoEnTorneo  = false;
 	 boolean fechaVacia = true;
 
 
 	 
-     Fecha fechaNueva = new Fecha();
+    
 		 
-     
-     				for(Equipo equipoVisitante: EquiposTemporal) { 				 //Recorre lista Equipos y comprobar si se puede agregar como Visitante							
-								
-					for(Equipo equipoLocal: EquiposTemporal) {   					 //Recorre lista Equipos y comprobar si se puede agregar como Local					
-						
-						equiposIguales = equipoVisitante.equals(equipoLocal);
-						fechaVacia = fechaNueva.isEmpty(); //Si fecha vacia agrega los equipos a un nuevo partido
-						
-						
-						
-					if(!equiposIguales) { //Equipos distintos Entra al IF
-	
-								if(fechaVacia) {
-								partidoNuevo.crear(equipoLocal, equipoVisitante, numFecha);
-								fechaNueva.add(partidoNuevo);					
-																    }
-
-						
-							 //partido repetido es un boolean 	- Funcion anonima: Filtra por las fechas diferentes a la actual y las recorre ejecutando - Fecha.yajugaron 						
-							PartidoRepetidoEnTorneo = fechas.stream()
-																								.map((fecha )-> fecha.getPartidos()	)
-																								.flatMap((partidos) -> partidos.stream())
-																								.anyMatch((partido) -> partido.partidoExistente(equipoLocal, equipoVisitante));
-							 
-							 
-							
-						 		//SI el partido No esta repetido en todo el torneoy la fecha no esta vacia -->
-								if(!PartidoRepetidoEnTorneo && !fechaVacia) {
-							
-								partidoNuevo.crear(equipoLocal, equipoVisitante, numFecha);							
-								fechaNueva.add(partidoNuevo);	
-								
-								try {   //Borrar los equipos Equipo Local y equipo visitante del array que esta iterando actualmente: Exception ConcurrentModificationException
-								EquiposTemporal.remove(equipoLocal);
-								EquiposTemporal.remove(equipoVisitante);
-								}catch(IndexOutOfBoundsException ex) {}
-								
-								
-																									} //Fin IF partido repetido en Torneo
-																									}  //Fin IF Equipos Iguales								
-																									}  //Fin FOR: Equipo Local																									
-																									}	//Fin FOR: Equipo Visitante 				
-				this.fechas.add(fechaNueva);
-																									}  //Fin Funcion
+  
+     for(Equipo equipoVisitante: listaEquipos) {
+    	 
+    	 for(Equipo equipoLocal: listaEquipos) {
+    		
+    	 equiposIguales = equipoVisitante.getNombre().equalsIgnoreCase(equipoLocal.getNombre());
+    	 
+    	
+    	 if(!equiposIguales) {
+    		
+    		 if(fechaVacia) {
+    			partidoNuevo.crear(equipoLocal, equipoVisitante, numFecha+1);
+    			this.fechaNueva.add(partidoNuevo);
+    			
+   				
+    		 }
+    		 
+    		 PartidoRepetidoEnTorneo = fechas.stream()
+						.map((fecha )-> fecha.getPartidos()	)
+						.flatMap((partidos) -> partidos.stream())
+						.anyMatch((partido) -> partido.partidoExistente(equipoLocal, equipoVisitante));
+    	 	}
+    	 
+    		
+    	 	if(!PartidoRepetidoEnTorneo && !fechaVacia) {
+    	 		partidoNuevo.crear(equipoLocal, equipoVisitante, numFecha);
+    	 		//this.fechaNueva.add(partidoNuevo);
+    			
+    	 	}
+    	 
+    		 
+    	 }
+     }
+     this.fechas.add(this.fechaNueva);																							}  //Fin Funcion
 
 
 
 public void mostrarCronograma() {
 	
-	int i = 0;
-	for(Fecha f: this.fechas) {
-		System.out.println("En la Fecha = " + f.getIdFecha());
-		for(Partido p: f.getPartidos()) {
-			
-			System.out.println("Partido Nº= " + i);
-			System.out.println (p.getFechaCampeonato() + " \n"
-														+ "jugaron Local = " + p.getLocal().getNombre() + " y " + p.getVisitante().getNombre());
-			i++;
-}									
-}
+
+	this.fechaNueva.getPartidos().stream().forEach(partido -> System.out.println("ABC-> " + partido.getLocal().getNombre() + partido.getVisitante().getNombre()));
 }
 
 
 
-	public static void resultados(List<Equipo> lista) {
+	public void resultados(List<Equipo> lista) {
 
 		int mayor = 0;
 		Equipo equipo = null;
@@ -264,4 +245,3 @@ public void Iteraciones() {
 
 
 }//Fin Clase
-
