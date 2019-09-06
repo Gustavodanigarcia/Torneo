@@ -67,7 +67,16 @@ private List<Partido> partidos = new ArrayList<>();
 			return false;	
 	}
 	
-	
+public boolean yaJugo(Equipo visitante) {
+		
+		for(Partido partido: partidos) {
+			
+			if(partido.getLocal().equals(visitante) || partido.getVisitante().equals(visitante));
+			
+			return true;
+		}		
+			return false;	
+	}
 	
 	
 }
