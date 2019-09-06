@@ -1,4 +1,4 @@
-package ProyectoTorneo.Modelo;
+
 
 public class Equipo {
 
@@ -8,7 +8,10 @@ public class Equipo {
 
 	private int puntos;
 	
-
+	public Equipo(int id, String nombre) {
+		this.id = id;
+		this.nombre = nombre;
+	}
 
 
 	public int getPuntos() {
