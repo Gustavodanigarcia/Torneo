@@ -1,5 +1,3 @@
-
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -43,7 +41,7 @@ public class Partido {
 	
 	//Comprueba si los equipos local o visitante estan presente en X partido:::
 	public boolean partidoExistente(Equipo local, Equipo visitante ) {
-		if(this.local == local || this.local == visitante || this.visitante == local || this.visitante == visitante)
+		if(this.local.equals(local) || this.local.equals(visitante) || this.visitante.equals(local) || this.visitante.equals(visitante))
 		return true;
 		else
 			return false;
