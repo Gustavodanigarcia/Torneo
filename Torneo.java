@@ -102,9 +102,10 @@ public  void mostrarEquipos( ) {  //Muestra los Equipos:::
 public  void crearFecha (int numFecha) { 
 	
 	 List<Equipo> EquiposTemporal = this.listaEquipos;
-	 Partido partidoNuevo  = new Partido();
-	 
+	
+	Fecha fechaTemporal = new Fecha();
 	 boolean equiposIguales = true;
+	 boolean yaJugo = false;
 	 boolean  PartidoRepetidoEnTorneo  = false;
 	 boolean fechaVacia = true;
 
@@ -114,18 +115,24 @@ public  void crearFecha (int numFecha) {
 		 
   
      for(Equipo equipoVisitante: listaEquipos) {
+    	 Partido partidoNuevo  = new Partido();
     	 
+    	 			yaJugo = fechaTemporal.yaJugo(equipoVisitante);
+		    	 	if(yaJugo == true)
+		    		 break;
+
+
     	 for(Equipo equipoLocal: listaEquipos) {
     		
     	 equiposIguales = equipoVisitante.getNombre().equalsIgnoreCase(equipoLocal.getNombre());
-    	 
+    	 fechaVacia = fechaTemporal.isEmpty();
     	
     	 if(!equiposIguales) {
     		
     		 if(fechaVacia) {
     			partidoNuevo.crear(equipoLocal, equipoVisitante, numFecha+1);
-    			this.fechaNueva.add(partidoNuevo);
-    			
+    			fechaTemporal.add(partidoNuevo);
+    			break;
    				
     		 }
     		 
@@ -133,26 +140,37 @@ public  void crearFecha (int numFecha) {
 						.map((fecha )-> fecha.getPartidos()	)
 						.flatMap((partidos) -> partidos.stream())
 						.anyMatch((partido) -> partido.partidoExistente(equipoLocal, equipoVisitante));
+    	
     	 	}
     	 
     		
     	 	if(!PartidoRepetidoEnTorneo && !fechaVacia) {
     	 		partidoNuevo.crear(equipoLocal, equipoVisitante, numFecha);
-    	 		//this.fechaNueva.add(partidoNuevo);
-    			
+    	 		fechaTemporal.add(partidoNuevo);
+    	 		break;
     	 	}
     	 
     		 
     	 }
      }
-     this.fechas.add(this.fechaNueva);																							}  //Fin Funcion
+     this.fechas.add(fechaTemporal);																							}  //Fin Funcion
 
 
 
 public void mostrarCronograma() {
 	
 
-	this.fechaNueva.getPartidos().stream().forEach(partido -> System.out.println("ABC-> " + partido.getLocal().getNombre() + partido.getVisitante().getNombre()));
+					fechas.stream()
+				.map((fecha )-> fecha.getPartidos()	)
+				.flatMap((partidos) -> partidos.stream())
+				.forEach((partido) -> System.out.println(partido.getVisitante().getNombre() +"  " + partido.getLocal().getNombre()));
+					
+				Long items	= fechas.stream()
+					.map((fecha )-> fecha.getPartidos()	)
+					.flatMap((partidos) -> partidos.stream())
+					.count();
+					System.out.println(items);
+				
 }
 
 
