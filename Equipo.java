@@ -1,25 +1,25 @@
-
-
 public class Equipo {
 
 	
 	private int id;
 	private String nombre;
-
-	private int puntos;
+	private int puntosEnTorneo;
 	
-	public Equipo(int id, String nombre) {
-		this.id = id;
-		this.nombre = nombre;
-	}
+	
+	
 
+		public Equipo(int id, String nombre) {
+			
+			this.id = id;
+			this.nombre = nombre;
+		}
 
 	public int getPuntos() {
-		return puntos;
+		return puntosEnTorneo;
 	}
 
 	public void setPuntos(int puntos) {
-		this.puntos = puntos;
+		this.puntosEnTorneo = puntos;
 	}
 
 	public Equipo() {}
@@ -39,5 +39,4 @@ public class Equipo {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
 }
