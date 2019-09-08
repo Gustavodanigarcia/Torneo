@@ -1,8 +1,6 @@
+
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class Partido {
@@ -25,6 +23,7 @@ public class Partido {
 	//Constructor con id random :::::::::
 	public Partido(){ 
 		id = (int) (Math.random() * 50); 
+		
 	}	
 
 	
@@ -41,7 +40,7 @@ public class Partido {
 	
 	//Comprueba si los equipos local o visitante estan presente en X partido:::
 	public boolean partidoExistente(Equipo local, Equipo visitante ) {
-		if(this.local.equals(local) || this.local.equals(visitante) || this.visitante.equals(local) || this.visitante.equals(visitante))
+		if((this.local.equals(local) && this.visitante.equals(visitante) || (this.local.equals(visitante) || this.visitante.equals(local))))
 		return true;
 		else
 			return false;
@@ -52,8 +51,8 @@ public class Partido {
 public  void jugar( ) {
 	
 	Random random = new Random();
-	this.golesLocal = random.nextInt(5);
-	this.golesVisitante = random.nextInt(4);
+	this.golesLocal = random.nextInt(6);
+	this.golesVisitante = random.nextInt(6);
 	
 	this.empate = golesLocal == golesVisitante ? true:false;
 	
@@ -74,20 +73,19 @@ public void mostrarResultado() {
 	String equipoLocal = getLocal().getNombre();
 	String equipoVisitante = getVisitante().getNombre();
 	int Numfecha = getFechaCampeonato();
-	String equipoGanador = getGanador().getNombre();
+	
 	
 	int golesLocal = getGolesLocal();
 	int golesVisitante = getGolesVisitante();
 
 	if(!isEmpate())	{ 
-	
+		String equipoGanador = getGanador().getNombre();
+		
 DiferenciaDeGol = Math.abs(getGolesLocal() - getGolesVisitante());
 
-resultado = 			"-En la fecha Nº " +  Numfecha + "\n" 
-										+ " jugaron en la cancha de \n "
-										+ equipoLocal + " y el visitante: " + equipoVisitante						
-										+ "\n el equipo de: " +  equipoLocal + " anoto: " + golesLocal + " y el visitante: " + golesVisitante
-										+ "\n entonces el ganador fue: " + equipoGanador + " con una diferencia de goles de: " + DiferenciaDeGol 
+resultado = 			"-En la fecha Nº " +  Numfecha + "\n" 		
+										+ "\n" +  equipoLocal + ":" + golesLocal + "  VS  "  + equipoVisitante + ":" + golesVisitante
+										+ "\n el ganador fue: " + equipoGanador + " con una diferencia de goles de: " + DiferenciaDeGol 
 										+ "\n  ";
 						
 	}else {
@@ -102,7 +100,7 @@ resultado = 			"-Empate la fecha Nº " +  Numfecha+ "\n"
 	
 
 	System.out.println(resultado);
-
+	System.out.println(" -    -    -     -    -     -    -     -    -    -    -     -     -    -    -");
 }
 
 	
