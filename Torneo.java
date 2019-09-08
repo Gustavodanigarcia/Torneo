@@ -57,10 +57,7 @@ public class Torneo {
 	
 
 	}
-	
-	
-	
-	
+
 	//Constructores:::
 	public Torneo( int año) {  
 		this.año = año;
@@ -160,9 +157,6 @@ public  void mostrarEquipos( ) {  //Muestra los Equipos:::
 	System.out.format("+-----------------+------+%n");
 }
 
-
-
-
 	public int getCantidadEquipos() {
 	return cantidadEquipos;
 	}
@@ -219,8 +213,6 @@ public  void mostrarEquipos( ) {  //Muestra los Equipos:::
 								partidoNuevo.crear(equipoLocal, equipoVisitante, numFecha);							
 								fechaNueva.add(partidoNuevo);	
 								
-								
-								
 																									} //Fin IF Partido ya se jugo en Todo el torneo almenos alguna vez 
 																									}  //Fin IF Equipo L o V ya jugaron en la fecha		
 																									}  //Fin IF Equipos Iguales
@@ -228,8 +220,6 @@ public  void mostrarEquipos( ) {  //Muestra los Equipos:::
 																									}	//Fin FOR: Equipo Visitante 				
      							this.fechas.add(fechaNueva);
 																									}  //Fin Funcion
-
-
 
 
 
@@ -244,8 +234,6 @@ public void jugarPartidos() {
 }
 }
 }
-
-
 
 	
 	public  void puntero() {
@@ -286,9 +274,7 @@ public void jugarPartidos() {
 }
 }
 
-	
-	
-	
+
 	
 	public  void TablaClasificacion() {  //Muestra los Equipos::: 
 		List <Equipo> ordenada = listaEquipos.stream().sorted(Comparator.comparing(Equipo::getPuntos).reversed()).collect(Collectors.toList());
@@ -316,12 +302,7 @@ public void jugarPartidos() {
 	
 
 	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
@@ -331,15 +312,9 @@ public List<Fecha> getFechas() {
 	return fechas;
 }
 
-
 public void setFechas(List<Fecha> fechas) {
 	this.fechas = fechas;
 }
-
-
-
-
-
 
 public String getNombre(int id) {
 	return listaEquipos.get(id).getNombre();
