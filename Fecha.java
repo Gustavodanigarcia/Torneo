@@ -17,7 +17,7 @@ private List<Partido> partidos = new ArrayList<>();
 	}
 	
 	public void setIdFecha(int idFecha) {
-		IdFecha = idFecha;
+		this.IdFecha = idFecha;
 	}
 	
 	
@@ -36,7 +36,7 @@ private List<Partido> partidos = new ArrayList<>();
 	}
 
 	public void setIdCampeonato(int idCampeonato) {
-		IdCampeonato = idCampeonato;
+		this.IdCampeonato = idCampeonato;
 	}
 
 	
@@ -53,10 +53,13 @@ private List<Partido> partidos = new ArrayList<>();
 	//Add partido en Lista partidos::::
 	public void add(Partido partido) {
 		partidos.add(partido);
+		this.IdFecha = partido.getFechaCampeonato();
 	}
 	
 	//Comprueba si ya jugaron los mismos equipos en otro partido recorriendo todos los partidos de todas las Fechas:::
 	public boolean yaJugaron(Equipo local, Equipo visitante) {
+		
+		boolean abc = partidos.stream().anyMatch(p -> p.partidoExistente(local, visitante));	
 		
 		for(Partido partido: partidos) {
 			
@@ -67,16 +70,62 @@ private List<Partido> partidos = new ArrayList<>();
 			return false;	
 	}
 	
-public boolean yaJugo(Equipo visitante) {
-		
+	
+	public boolean equiposRepetidos(Equipo local, Equipo visitante) {
 		for(Partido partido: partidos) {
-			
-			if(partido.getLocal().equals(visitante) || partido.getVisitante().equals(visitante));
-			
+			if(partido.getLocal().equals(local) || partido.getLocal().equals(visitante) || partido.getVisitante().equals(local) || partido.getVisitante().equals(visitante))
 			return true;
 		}		
-			return false;	
+		return false;
 	}
 	
+	
+	public void mostrarResultado() {
+		
+		String resultado = null;
+		String fecha = null;
+		int DiferenciaDeGol = 0;
+		int i= 0;
+		for(Partido partido: partidos) {
+		
+		String equipoLocal = partido.getLocal().getNombre();
+		String equipoVisitante = partido.getVisitante().getNombre();
+		int Numfecha = partido.getFechaCampeonato();
+		fecha = "\n--------------En la fecha Nº " +  Numfecha + " ------------------\n" ;
+		
+		int golesLocal = partido.getGolesLocal();
+		int golesVisitante = partido.getGolesVisitante();
+
+		if(!partido.isEmpate())	{ 
+			String equipoGanador = partido.getGanador().getNombre();
+			
+	DiferenciaDeGol = Math.abs(partido.getGolesLocal() - partido.getGolesVisitante());
+
+	
+	
+	
+	resultado = 			"\n • " +  equipoLocal + ":" + golesLocal + "  VS  "  + equipoVisitante + ":" + golesVisitante
+											+ "\n el ganador fue: " + equipoGanador + ", con una diferencia de goles de: " + DiferenciaDeGol 
+											+ "\n ";
+							
+		}else {
+		
+		
+	resultado = 			 "\n • " +  equipoLocal + ":" + golesLocal + "  VS  "  + equipoVisitante + ":" + golesVisitante		
+											 + "\n Empate, no se sacaron diferencia de gol"
+											 + "\n ";
+		}
+		
+		if(i == 0)
+			System.out.println(fecha);
+		System.out.println(resultado);
+
+		i++;
+	}
+
+	
+	
+	
+	}
 	
 }
