@@ -4,7 +4,9 @@ public class Equipo {
 	private int id;
 	private String nombre;
 	private int puntosEnTorneo;
-	
+	private int partidosGanados;
+	private int partidosEmpatados;
+	private int partidosPerdidos;
 	
 	
 
@@ -13,6 +15,51 @@ public class Equipo {
 			this.id = id;
 			this.nombre = nombre;
 		}
+
+		
+		
+		
+		
+		public int getPartidosGanados() {
+			return partidosGanados;
+		}
+
+		public void setPartidosGanados(int partidosGanados) {
+			this.partidosGanados = partidosGanados;
+		}
+
+
+		public int getPartidosEmpatados() {
+			return partidosEmpatados;
+		}
+
+
+
+
+
+		public void setPartidosEmpatados(int partidosEmpatados) {
+			this.partidosEmpatados = partidosEmpatados;
+		}
+
+
+
+
+
+		public int getPartidosPerdidos() {
+			return partidosPerdidos;
+		}
+
+
+
+
+
+		public void setPartidosPerdidos(int partidosPerdidos) {
+			this.partidosPerdidos = partidosPerdidos;
+		}
+
+
+
+
 
 	public int getPuntos() {
 		return puntosEnTorneo;
@@ -40,3 +87,4 @@ public class Equipo {
 		this.nombre = nombre;
 	}
 }
+
