@@ -13,8 +13,9 @@ public class Partido {
 	private boolean empate;
 	private Equipo visitante;	
 	private Equipo ganador;
+	private Equipo perdedor;
 
-
+	
 	private List<String> resultado = new ArrayList<>();
 	
 
@@ -48,7 +49,7 @@ public class Partido {
 	
 
 	//Jugar Partido::: Setea los goles del Equipo local y visitante y con esas variables define ganador perdedor empate:::
-public  void jugar( ) {
+public  void jugar() {
 	
 	Random random = new Random();
 	this.golesLocal = random.nextInt(6);
@@ -59,7 +60,18 @@ public  void jugar( ) {
 	if(!this.empate) {
 		
 		this.ganador = golesLocal > golesVisitante ? this.local:this.visitante;
+		this.perdedor = this.ganador.equals(this.local) ? this.visitante:this.local;
+	
+		
+		
 		this.ganador.setPuntos(ganador.getPuntos() + 3);
+		this.ganador.setPartidosGanados(ganador.getPartidosGanados() + 1);
+		this.perdedor.setPartidosPerdidos(perdedor.getPartidosPerdidos() + 1);
+											}else {
+												this.local.setPuntos(local.getPuntos() + 1);
+												this.visitante.setPuntos(visitante.getPuntos() + 1);
+												this.local.setPartidosEmpatados(local.getPartidosEmpatados()+1);
+												this.visitante.setPartidosEmpatados(visitante.getPartidosEmpatados()+1);
 											}
 
 	}
